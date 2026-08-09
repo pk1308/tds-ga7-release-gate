@@ -1,0 +1,23 @@
+name: TDS GA7 Release Gate
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: TDS identity: 23f2000254@ds.study.iitm.ac.in
+        run: echo "TDS GA7 Release Gate identity confirmed"
+      - name: Run release-gate tests
+        run: |
+          python -m pip install --quiet pytest
+          python -m pytest -q
